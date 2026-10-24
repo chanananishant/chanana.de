@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishant Chanana</title>
+    <meta name="description" content="Nishant Chanana – Marketing Automation Lead based in Frankfurt am Main, Germany.">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts for Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            color: #ecf0f1;
+            background-color: #2c3e50; /* Dark background */
+            line-height: 1.6;
+        }
+
+        /* Fixed layer for the cursor-following gradient, so it stays put while the page scrolls */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-color: #2c3e50;
+            transition: background 0.2s ease; /* Smooth gradient update */
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 32px 16px 64px;
+        }
+
+        .home-link {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .home-link:hover {
+            color: #ffffff;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        h1, h2, h3 {
+            color: #ffffff;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .lead {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 0 24px;
+        }
+
+        /* Header */
+        .intro {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .intro img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            flex-shrink: 0;
+        }
+
+        .intro h1 {
+            font-size: 36px;
+            line-height: 1.2;
+        }
+
+        .role {
+            font-size: 18px;
+            color: #7fb8e6;
+            font-weight: 600;
+            margin: 4px 0 12px;
+        }
+
+        .intro p {
+            margin: 0 0 12px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .location {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 14px;
+        }
+
+        /* Timeline */
+        .timeline {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .timeline > li {
+            position: relative;
+            padding: 0 0 28px 28px;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+            margin-left: 5px;
+        }
+
+        .timeline > li:last-child {
+            border-left-color: transparent;
+            padding-bottom: 0;
+        }
+
+        .timeline > li::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2980b9;
+            border: 2px solid #ecf0f1;
+        }
+
+        .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .item-head h3 {
+            font-size: 17px;
+        }
+
+        .date {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            padding: 2px 12px;
+            white-space: nowrap;
+        }
+
+        .meta {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 14px;
+            margin: 2px 0 0;
+        }
+
+        .timeline p.desc {
+            margin: 10px 0 0;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .timeline ul.points {
+            margin: 10px 0 0;
+            padding-left: 18px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Two-column grid for certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .cert {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .cert h3 {
+            font-size: 15px;
+        }
+
+        /* Skills */
+        .skill-group h3 {
+            font-size: 16px;
+            margin: 20px 0 10px;
+        }
+
+        .skill-group:first-of-type h3 {
+            margin-top: 0;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            font-size: 14px;
+            padding: 4px 14px;
+            border-radius: 999px;
+            background: rgba(41, 128, 185, 0.35);
+            border: 1px solid rgba(127, 184, 230, 0.4);
+        }
+
+        .chip.basic {
+            background: transparent;
+            border-style: dashed;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Languages */
+        .languages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .language {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .language strong {
+            display: block;
+            color: #ffffff;
+        }
+
+        .language span {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 22px;
+            }
+
+            .intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .intro h1 {
+                font-size: 30px;
+            }
+
+            .cert-grid,
+            .languages {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="page">
+        <a class="home-link" href="/">&larr; Chanana.de</a>
+
+        <header class="card intro">
+            <img src="photo.jpg" alt="Portrait of Nishant Chanana">
+            <div>
+                <h1>Nishant Chanana</h1>
+                <div class="role">Marketing Automation Lead</div>
+                <p>Experienced marketing automation leader with a track record of designing and executing scalable digital journeys across Europe. Skilled in orchestrating multi-channel campaigns, harnessing customer data to deliver personalised experiences and aligning technology with marketing strategy to accelerate growth. Adept at collaborating with product, sales and CRM teams to build unified data models and segmentation systems.</p>
+                <div class="location">Based in Frankfurt am Main, Germany</div>
+            </div>
+        </header>
+
+        <section class="card">
+            <h2>Work Experience</h2>
+            <p class="lead">Proven track record in marketing automation and digital strategy, delivering impactful results across industries.</p>
+            <ul class="timeline">
+                <li>
+                    <div class="item-head">
+                        <h3>Marketing Automation Lead</h3>
+                        <span class="date">Dec 2023 – Present</span>
+                    </div>
+                    <p class="meta">MISUMI Europe GmbH · Full Time · Frankfurt, Germany</p>
+                    <ul class="points">
+                        <li>Lead marketing automation strategy across multiple European markets.</li>
+                        <li>Drive cross-market campaign expansion and standardisation.</li>
+                        <li>Led migration from Maileon to Salesforce Marketing Cloud.</li>
+                        <li>Manage and mentor the regional marketing automation team.</li>
+                        <li>Partner with sales and leadership on growth strategy.</li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="item-head">
+                        <h3>Head of Marketing Automation</h3>
+                        <span class="date">May 2023 – Nov 2023</span>
+                    </div>
+                    <p class="meta">IONOS SE · Contract · Karlsruhe, Germany</p>
+                    <p class="desc">Defined and owned the company-wide marketing automation vision and roadmap, aligned with long-term growth and scalability. Led strategic planning and stakeholder alignment at leadership level, connecting automation to commercial objectives. Optimised automation architecture, governance, and performance reporting across teams and markets.</p>
+                </li>
+                <li>
+                    <div class="item-head">
+                        <h3>Senior Marketing Automation Manager</h3>
+                        <span class="date">Dec 2022 – Apr 2023</span>
+                    </div>
+                    <p class="meta">IONOS SE · Contract · Karlsruhe, Germany</p>
+                    <p class="desc">Defined the automation strategy for the Business Applications segment, supporting global growth initiatives. Delivered multi-channel campaigns across email, SMS, and in-app messaging for international markets. Built advanced segmentation and nurturing flows to improve lead quality and accelerate sales cycles.</p>
+                </li>
+                <li>
+                    <div class="item-head">
+                        <h3>Marketing Automation Manager</h3>
+                        <span class="date">Sep 2020 – Nov 2022</span>
+                    </div>
+                    <p class="meta">IONOS SE · Full Time · Karlsruhe, Germany</p>
+                    <p class="desc">Architected automated lifecycle programmes for SMB customers across Europe and North America. Executed 200+ automated campaigns across onboarding, engagement, and retention journeys. Implemented lead scoring and behavioural segmentation to personalise communications and drive conversions.</p>
+                </li>
+                <li>
+                    <div class="item-head">
+                        <h3>Project Manager – Digital Marketing</h3>
+                        <span class="date">Dec 2016 – Aug 2020</span>
+                    </div>
+                    <p class="meta">za:media GmbH · Full Time · Mannheim, Germany</p>
+                    <p class="desc">Managed digital marketing projects for B2B clients, delivering campaigns across paid media, SEO and CRM channels. Coordinated cross-functional teams to implement marketing automation solutions using HubSpot and Pardot.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Education</h2>
+            <p class="lead">Engineering foundation with an international business focus.</p>
+            <ul class="timeline">
+                <li>
+                    <div class="item-head">
+                        <h3>M.E. – International Business &amp; Engineering</h3>
+                        <span class="date">Apr 2014 – Mar 2016</span>
+                    </div>
+                    <p class="meta">SRH Hochschule Heidelberg</p>
+                    <p class="desc">Coursework focused on operations management, international marketing and technology management. Capstone project on optimising supply chains using lean methodologies.</p>
+                </li>
+                <li>
+                    <div class="item-head">
+                        <h3>B.Tech. – Mechanical Engineering</h3>
+                        <span class="date">Jul 2009 – May 2013</span>
+                    </div>
+                    <p class="meta">ITM University, India</p>
+                    <p class="desc">Specialised in mechanical systems design and manufacturing processes. Completed industrial training at leading automotive firms.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Licences &amp; Certifications</h2>
+            <p class="lead">Continuous learning in leadership, project management and marketing technology.</p>
+            <div class="cert-grid">
+                <div class="cert">
+                    <div class="item-head"><h3>Change Management</h3><span class="date">Dec 2025</span></div>
+                    <p class="meta">DiCademy GmbH</p>
+                </div>
+                <div class="cert">
+                    <div class="item-head"><h3>Leadership Program</h3><span class="date">Oct 2025</span></div>
+                    <p class="meta">DiCademy GmbH</p>
+                </div>
+                <div class="cert">
+                    <div class="item-head"><h3>HubSpot Marketing Software</h3><span class="date">May 2021</span></div>
+                    <p class="meta">HubSpot Academy</p>
+                </div>
+                <div class="cert">
+                    <div class="item-head"><h3>Online Marketing Foundations</h3><span class="date">May 2020</span></div>
+                    <p class="meta">NASBA &amp; LinkedIn Learning</p>
+                </div>
+                <div class="cert">
+                    <div class="item-head"><h3>Project Management</h3><span class="date">Apr 2020</span></div>
+                    <p class="meta">LinkedIn Learning</p>
+                </div>
+                <div class="cert">
+                    <div class="item-head"><h3>Marketing Tools: Digital Marketing</h3><span class="date">Apr 2020</span></div>
+                    <p class="meta">LinkedIn Learning</p>
+                </div>
+                <div class="cert">
+                    <div class="item-head"><h3>German Course (A1–B2)</h3><span class="date">Jun 2014 – Mar 2014</span></div>
+                    <p class="meta">Goethe Institute</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Professional Skills</h2>
+            <p class="lead">Key competencies in marketing automation, CRM and data analytics.</p>
+            <div class="skill-group">
+                <h3>Marketing Automation &amp; CRM</h3>
+                <div class="chips">
+                    <span class="chip">Salesforce Marketing Cloud</span>
+                    <span class="chip">SF Account Engagement</span>
+                    <span class="chip">SF Sales Cloud</span>
+                    <span class="chip">HubSpot Marketing Hub</span>
+                    <span class="chip">HubSpot Sales Hub</span>
+                    <span class="chip">Maileon</span>
+                    <span class="chip">Pardot</span>
+                    <span class="chip basic">Mailchimp</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <h3>Data &amp; Analysis</h3>
+                <div class="chips">
+                    <span class="chip">SQL – Data Analysis</span>
+                    <span class="chip">Adobe &amp; Google Analytics</span>
+                    <span class="chip">A/B Testing</span>
+                    <span class="chip basic">GA4</span>
+                    <span class="chip basic">Power BI</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <h3>Other Tools &amp; Platforms</h3>
+                <div class="chips">
+                    <span class="chip">MS Office &amp; Google Workspace</span>
+                    <span class="chip">Jira, Asana &amp; Confluence</span>
+                    <span class="chip">WordPress &amp; Contao</span>
+                    <span class="chip">Miro</span>
+                    <span class="chip basic">Adobe Photoshop</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Languages</h2>
+            <p class="lead">Working comfortably across international teams.</p>
+            <div class="languages">
+                <div class="language"><strong>English</strong><span>Fluent (C2)</span></div>
+                <div class="language"><strong>German</strong><span>Advanced (C1)</span></div>
+                <div class="language"><strong>Hindi</strong><span>Mother tongue</span></div>
+            </div>
+        </section>
+
+        <footer>&copy; 2026 Nishant Chanana · chanana.de</footer>
+    </div>
+
+    <script>
+        document.addEventListener('mousemove', (event) => {
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+            // Creating a smoother background gradient
+            document.querySelector('.bg').style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, #2980b9, #34495e)`;
+        });
+    </script>
+</body>
+</html>
