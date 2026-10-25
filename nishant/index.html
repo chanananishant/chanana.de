@@ -6,9 +6,40 @@
     <title>Nishant Chanana</title>
     <meta name="description" content="Nishant Chanana – Marketing Automation &amp; AI-Driven CRM Leader based near Frankfurt am Main, Germany.">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <!-- Google Fonts for Open Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Open Sans is self-hosted so no visitor data is sent to third parties */
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('fonts/open-sans-latin-400-normal.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('fonts/open-sans-latin-500-normal.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('fonts/open-sans-latin-600-normal.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('fonts/open-sans-latin-700-normal.woff2') format('woff2');
+        }
+
         :root {
             --bg: #f4f7fb;
             --card: #ffffff;
@@ -361,11 +392,201 @@
             background: linear-gradient(90deg, var(--accent), var(--ai));
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section,
+        header {
+            scroll-margin-top: 84px;
+        }
+
+        /* Sticky section navigation */
+        .nav {
+            position: sticky;
+            top: 12px;
+            z-index: 10;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 6px;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            box-shadow: 0 8px 24px rgba(30, 60, 100, 0.08);
+        }
+
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav a {
+            flex-shrink: 0;
+            padding: 8px 16px;
+            border-radius: 999px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .nav a.cta {
+            margin-left: auto;
+            background: linear-gradient(90deg, var(--accent), var(--ai));
+            color: #ffffff;
+        }
+
+        /* Contact form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .field input,
+        .field textarea {
+            font: inherit;
+            color: var(--text);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 14px;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .field textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            background: #ffffff;
+        }
+
+        /* Honeypot: hidden from people, tempting for bots */
+        .hp {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .human-check {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+            font-size: 14px;
+        }
+
+        .human-check .shield {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .human-check.done {
+            border-color: #b7e2c6;
+            background: #effaf3;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .btn {
+            font: inherit;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(90deg, var(--accent), var(--ai));
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 26px;
+            cursor: pointer;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-status {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .form-status.ok {
+            color: #1f8a4c;
+        }
+
+        .form-status.err {
+            color: #c0392b;
+        }
+
+        .form-note {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 14px 0 0;
+        }
+
         footer {
             text-align: center;
             color: var(--muted);
             font-size: 13px;
             margin-top: 32px;
+        }
+
+        footer p {
+            margin: 4px 0;
+        }
+
+        .privacy {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .privacy svg {
+            width: 15px;
+            height: 15px;
         }
 
         @media (max-width: 680px) {
@@ -403,8 +624,18 @@
             }
 
             .cert-grid,
-            .languages {
+            .languages,
+            .form-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .nav {
+                top: 8px;
+                border-radius: 16px;
+            }
+
+            .nav a.cta {
+                margin-left: 0;
             }
         }
     </style>
@@ -447,7 +678,16 @@
     <div class="bg"></div>
     <div class="page">
 
-        <header class="card">
+        <nav class="nav" aria-label="Sections">
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#skills">Skills</a>
+            <a href="#languages">Languages</a>
+            <a href="#contact" class="cta">Contact</a>
+        </nav>
+
+        <header class="card" id="profile">
             <div class="hero">
                 <img src="photo.jpg" alt="Portrait of Nishant Chanana">
                 <div>
@@ -467,7 +707,7 @@
             </div>
         </header>
 
-        <section class="card">
+        <section class="card" id="experience">
             <div class="section-title">
                 <div class="badge"><svg viewBox="0 0 24 24"><g fill="none" stroke="#1d6fb8" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></g></svg></div>
                 <h2>Work Experience</h2>
@@ -542,7 +782,7 @@
             </ul>
         </section>
 
-        <section class="card">
+        <section class="card" id="education">
             <div class="section-title">
                 <div class="badge"><svg viewBox="0 0 24 24"><g fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6"/></g></svg></div>
                 <h2>Education</h2>
@@ -568,7 +808,7 @@
             </ul>
         </section>
 
-        <section class="card">
+        <section class="card" id="certifications">
             <div class="section-title">
                 <div class="badge"><svg viewBox="0 0 24 24"><g fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></g></svg></div>
                 <h2>Licences &amp; Certifications</h2>
@@ -618,7 +858,7 @@
             </div>
         </section>
 
-        <section class="card">
+        <section class="card" id="skills">
             <div class="section-title">
                 <div class="badge"><svg viewBox="0 0 24 24"><g fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linejoin="round"><path d="M12 2l9 5-9 5-9-5z"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5"/></g></svg></div>
                 <h2>Professional Skills</h2>
@@ -686,7 +926,7 @@
             </div>
         </section>
 
-        <section class="card">
+        <section class="card" id="languages">
             <div class="section-title">
                 <div class="badge"><svg viewBox="0 0 24 24"><g fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></g></svg></div>
                 <h2>Languages</h2>
@@ -699,10 +939,163 @@
             </div>
         </section>
 
-        <footer>&copy; 2026 Nishant Chanana</footer>
+        <section class="card" id="contact">
+            <div class="section-title">
+                <div class="badge"><svg viewBox="0 0 24 24"><g fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g></svg></div>
+                <h2>Get in Touch</h2>
+            </div>
+            <p class="lead">Interested in working together or talking about marketing automation and AI? Send me a message.</p>
+
+            <form id="contact-form" novalidate>
+                <!-- Web3Forms access key: public by design, it only routes messages to my inbox and never reveals the address -->
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                <input type="hidden" name="subject" value="New message from chanana.de/nishant">
+                <input type="hidden" name="from_name" value="chanana.de contact form">
+                <div class="hp" aria-hidden="true">
+                    <label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label>
+                    <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="cf-name">Name</label>
+                        <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="100">
+                    </div>
+                    <div class="field">
+                        <label for="cf-email">Email</label>
+                        <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="150">
+                    </div>
+                    <div class="field full">
+                        <label for="cf-company">Company <span style="font-weight: 400; color: var(--muted)">(optional)</span></label>
+                        <input id="cf-company" name="company" type="text" autocomplete="organization" maxlength="100">
+                    </div>
+                    <div class="field full">
+                        <label for="cf-message">Message</label>
+                        <textarea id="cf-message" name="message" required maxlength="3000"></textarea>
+                    </div>
+                    <div class="field full">
+                        <div class="human-check" id="human-check" aria-live="polite">
+                            <svg class="shield" viewBox="0 0 24 24"><path fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linejoin="round" d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path fill="none" stroke="#1d6fb8" stroke-width="2" stroke-linecap="round" d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+                            <span id="human-check-text">Checking that you are human…</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" type="submit" id="cf-submit" disabled>Send message</button>
+                    <span class="form-status" id="cf-status" role="status"></span>
+                </div>
+                <p class="form-note">Your message is delivered by Web3Forms and used only to reply to you. No cookies, no tracking.</p>
+            </form>
+        </section>
+
+        <footer>
+            <p class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>I respect your privacy, so this website does not use any cookies.</p>
+            <p>&copy; 2026 Nishant Chanana</p>
+        </footer>
     </div>
 
     <script>
+        // Highlight the nav button of the section in view
+        const navLinks = document.querySelectorAll('.nav a');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                navLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id && !link.classList.contains('cta'));
+                });
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
+
+        // Contact form with cookie-free bot protection:
+        // 1. honeypot fields that only bots fill in (also rejected server-side by Web3Forms)
+        // 2. a small proof-of-work puzzle the browser solves, which makes mass submissions expensive
+        // 3. a minimum time on the page before sending, plus a real interaction requirement
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('cf-submit');
+        const statusEl = document.getElementById('cf-status');
+        const check = document.getElementById('human-check');
+        const checkText = document.getElementById('human-check-text');
+        const loadedAt = Date.now();
+        let interacted = false;
+        let proof = null;
+
+        ['keydown', 'pointerdown', 'touchstart'].forEach((type) => {
+            form.addEventListener(type, () => { interacted = true; }, { once: true });
+        });
+
+        async function sha256Hex(text) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+            return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function solvePuzzle() {
+            const challenge = crypto.getRandomValues(new Uint32Array(4)).join('-');
+            // 18 leading zero bits: about a second on a laptop, a few on a phone
+            for (let nonce = 0; ; nonce++) {
+                const hash = await sha256Hex(challenge + ':' + nonce);
+                if (hash.startsWith('0000') && hash[4] < '4') {
+                    return challenge + ':' + nonce;
+                }
+            }
+        }
+
+        // Until the Web3Forms access key is filled in, show the form as "coming soon" instead of letting it fail
+        const formReady = !form.access_key.value.startsWith('YOUR_');
+        if (!formReady) {
+            form.querySelectorAll('input, textarea').forEach((el) => { el.disabled = true; });
+            checkText.textContent = 'The contact form is coming soon. Thank you for your patience!';
+            submitBtn.textContent = 'Coming soon';
+        }
+
+        if (formReady) solvePuzzle().then((result) => {
+            proof = result;
+            check.classList.add('done');
+            checkText.textContent = 'Verified, you can send your message.';
+            submitBtn.disabled = false;
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            statusEl.className = 'form-status';
+
+            if (form.botcheck.checked || form.website.value) return;
+            if (!proof || !interacted || Date.now() - loadedAt < 4000) {
+                statusEl.className = 'form-status err';
+                statusEl.textContent = 'Please take a moment to fill in the form, then try again.';
+                return;
+            }
+            if (!form.checkValidity()) {
+                statusEl.className = 'form-status err';
+                statusEl.textContent = 'Please fill in your name, a valid email and a message.';
+                return;
+            }
+
+            const data = Object.fromEntries(new FormData(form));
+            delete data.website;
+            data.proof_of_work = proof;
+
+            submitBtn.disabled = true;
+            statusEl.textContent = 'Sending…';
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (!result.success) throw new Error(result.message);
+                form.reset();
+                statusEl.className = 'form-status ok';
+                statusEl.textContent = 'Thank you! Your message has been sent.';
+            } catch (error) {
+                statusEl.className = 'form-status err';
+                statusEl.textContent = 'Sorry, something went wrong. Please try again later.';
+                submitBtn.disabled = false;
+            }
+        });
+
         const bg = document.querySelector('.bg');
         document.addEventListener('mousemove', (event) => {
             const x = event.clientX / window.innerWidth;
