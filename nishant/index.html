@@ -407,9 +407,8 @@
             top: 12px;
             z-index: 10;
             display: flex;
+            align-items: center;
             gap: 6px;
-            overflow-x: auto;
-            scrollbar-width: none;
             padding: 6px;
             margin-bottom: 24px;
             background: rgba(255, 255, 255, 0.85);
@@ -418,10 +417,6 @@
             border: 1px solid var(--border);
             border-radius: 999px;
             box-shadow: 0 8px 24px rgba(30, 60, 100, 0.08);
-        }
-
-        .nav::-webkit-scrollbar {
-            display: none;
         }
 
         .nav a {
@@ -435,21 +430,35 @@
             transition: background 0.15s ease, color 0.15s ease;
         }
 
-        .nav a.home {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        .nav-links {
+            display: flex;
+            gap: 4px;
         }
 
-        .nav a.home svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .nav a:hover,
-        .nav a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             background: var(--accent-soft);
             color: var(--accent);
+        }
+
+        /* Monogram that takes you back to the top */
+        .nav a.brand {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--accent), var(--ai));
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav a.brand:hover {
+            transform: translateY(-2px) rotate(-6deg);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
         }
 
         .nav a.cta {
@@ -457,6 +466,37 @@
             background: linear-gradient(90deg, var(--accent), var(--ai));
             color: #ffffff;
         }
+
+        /* Burger button, only shown on small screens */
+        .burger {
+            display: none;
+            position: relative;
+            width: 42px;
+            height: 38px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .burger span {
+            position: absolute;
+            left: 12px;
+            width: 18px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--accent);
+            transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease;
+        }
+
+        .burger span:nth-child(1) { top: 12px; }
+        .burger span:nth-child(2) { top: 18px; }
+        .burger span:nth-child(3) { top: 24px; }
+
+        .nav.open .burger span:nth-child(1) { top: 18px; transform: rotate(45deg); }
+        .nav.open .burger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav.open .burger span:nth-child(3) { top: 18px; transform: rotate(-45deg); }
 
         /* Contact form */
         .form-grid {
@@ -642,11 +682,46 @@
 
             .nav {
                 top: 8px;
-                border-radius: 16px;
             }
 
             .nav a.cta {
-                margin-left: 0;
+                padding: 8px 14px;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            /* Sections drop down below the bar when the burger is tapped */
+            .nav-links {
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 2px;
+                padding: 8px;
+                background: rgba(255, 255, 255, 0.97);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                box-shadow: 0 16px 40px rgba(30, 60, 100, 0.15);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-8px) scale(0.98);
+                transform-origin: top center;
+                transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            }
+
+            .nav.open .nav-links {
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                border-radius: 12px;
+                font-size: 16px;
             }
         }
     </style>
@@ -690,13 +765,16 @@
     <div class="page">
 
         <nav class="nav" aria-label="Sections">
-            <a href="#top" class="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11l9-8 9 8M5 9.5V21h5v-6h4v6h5V9.5"/></svg>Home</a>
-            <a href="#experience">Experience</a>
-            <a href="#education">Education</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#skills">Skills</a>
-            <a href="#languages">Languages</a>
+            <a href="#top" class="brand" aria-label="Back to top" title="Back to top">NC</a>
+            <div class="nav-links" id="nav-links">
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#skills">Skills</a>
+                <a href="#languages">Languages</a>
+            </div>
             <a href="#contact" class="cta">Let&rsquo;s connect</a>
+            <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
         </nav>
 
         <header class="card" id="profile">
@@ -1008,20 +1086,38 @@
     </div>
 
     <script>
-        // Home button scrolls back to the top of the page
-        document.querySelector('.nav a.home').addEventListener('click', (event) => {
+        // Monogram button scrolls back to the top of the page
+        const nav = document.querySelector('.nav');
+        const burger = nav.querySelector('.burger');
+        function setMenu(open) {
+            nav.classList.toggle('open', open);
+            burger.setAttribute('aria-expanded', open);
+            burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+        nav.querySelector('.brand').addEventListener('click', (event) => {
             event.preventDefault();
+            setMenu(false);
             window.scrollTo({ top: 0, behavior: 'smooth' });
             history.replaceState(null, '', location.pathname);
         });
 
+        // Mobile burger menu: toggle on tap, close after choosing a section or tapping outside
+        burger.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+        nav.querySelectorAll('.nav-links a, .cta').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+        document.addEventListener('click', (event) => {
+            if (!nav.contains(event.target)) setMenu(false);
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') setMenu(false);
+        });
+
         // Highlight the nav button of the section in view
-        const navLinks = document.querySelectorAll('.nav a');
+        const navLinks = document.querySelectorAll('.nav-links a');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
                 navLinks.forEach((link) => {
-                    link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id && !link.classList.contains('cta'));
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
                 });
             });
         }, { rootMargin: '-40% 0px -55% 0px' });
