@@ -148,15 +148,27 @@
             line-height: 1.15;
         }
 
+        /* Role headline: gradient text with a short accent rule, styled as text rather than a button */
         .headline {
-            display: inline-block;
-            margin: 10px 0 14px;
-            font-size: 17px;
+            margin: 6px 0 16px;
+            font-size: 21px;
             font-weight: 600;
-            color: #ffffff;
+            line-height: 1.35;
+            letter-spacing: -0.01em;
             background: linear-gradient(90deg, var(--accent), var(--ai));
-            padding: 4px 14px;
-            border-radius: 999px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .headline::after {
+            content: "";
+            display: block;
+            width: 48px;
+            height: 3px;
+            margin-top: 10px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--ai));
         }
 
         .hero p {
@@ -669,7 +681,12 @@
             }
 
             .headline {
-                border-radius: 14px;
+                font-size: 19px;
+            }
+
+            .headline::after {
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .stats {
