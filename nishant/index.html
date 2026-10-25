@@ -1041,7 +1041,15 @@
             }
         }
 
-        solvePuzzle().then((result) => {
+        // Until the Web3Forms access key is filled in, show the form as "coming soon" instead of letting it fail
+        const formReady = !form.access_key.value.startsWith('YOUR_');
+        if (!formReady) {
+            form.querySelectorAll('input, textarea').forEach((el) => { el.disabled = true; });
+            checkText.textContent = 'The contact form is coming soon. Thank you for your patience!';
+            submitBtn.textContent = 'Coming soon';
+        }
+
+        if (formReady) solvePuzzle().then((result) => {
             proof = result;
             check.classList.add('done');
             checkText.textContent = 'Verified, you can send your message.';
