@@ -401,6 +401,11 @@
             scroll-margin-top: 84px;
         }
 
+        /* Wrapper only matters on phones (see media query); on desktop the bar stays sticky */
+        .nav-wrap {
+            display: contents;
+        }
+
         /* Sticky section navigation */
         .nav {
             position: sticky;
@@ -627,17 +632,15 @@
 
         footer p {
             margin: 4px 0;
+            text-wrap: balance;
         }
 
-        .privacy {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        /* Icon sits inline with the text so it stays aligned when the line wraps */
         .privacy svg {
             width: 15px;
             height: 15px;
+            margin-right: 6px;
+            vertical-align: -2px;
         }
 
         @media (max-width: 680px) {
@@ -723,6 +726,56 @@
                 border-radius: 12px;
                 font-size: 16px;
             }
+
+            /* Keeps the bar's space at the top so the page doesn't jump when it docks */
+            .nav-wrap {
+                display: block;
+                min-height: 52px;
+                margin-bottom: 24px;
+            }
+
+            .nav-wrap .nav {
+                margin-bottom: 0;
+            }
+
+            /* Once scrolling starts, the bar docks to the bottom of the screen */
+            .nav.docked {
+                position: fixed;
+                top: auto;
+                left: 16px;
+                right: 16px;
+                bottom: calc(12px + env(safe-area-inset-bottom));
+                animation: dock-in 0.35s ease;
+                box-shadow: 0 -4px 30px rgba(30, 60, 100, 0.15);
+            }
+
+            .nav.docked .nav-links {
+                top: auto;
+                bottom: calc(100% + 8px);
+                transform: translateY(8px) scale(0.98);
+                transform-origin: bottom center;
+            }
+
+            .nav.docked.open .nav-links {
+                transform: none;
+            }
+
+            @keyframes dock-in {
+                from {
+                    transform: translateY(120%);
+                    opacity: 0;
+                }
+            }
+
+            section,
+            header {
+                scroll-margin-top: 16px;
+            }
+
+            /* Room so the docked bar never covers the footer */
+            .page {
+                padding-bottom: 96px;
+            }
         }
     </style>
 </head>
@@ -764,18 +817,20 @@
     <div class="bg"></div>
     <div class="page">
 
-        <nav class="nav" aria-label="Sections">
-            <a href="#top" class="brand" aria-label="Back to top" title="Back to top">NC</a>
-            <div class="nav-links" id="nav-links">
-                <a href="#experience">Experience</a>
-                <a href="#education">Education</a>
-                <a href="#certifications">Certifications</a>
-                <a href="#skills">Skills</a>
-                <a href="#languages">Languages</a>
-            </div>
-            <a href="#contact" class="cta">Let&rsquo;s connect</a>
-            <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
-        </nav>
+        <div class="nav-wrap">
+            <nav class="nav" aria-label="Sections">
+                <a href="#top" class="brand" aria-label="Back to top" title="Back to top">NC</a>
+                <div class="nav-links" id="nav-links">
+                    <a href="#experience">Experience</a>
+                    <a href="#education">Education</a>
+                    <a href="#certifications">Certifications</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#languages">Languages</a>
+                </div>
+                <a href="#contact" class="cta">Let&rsquo;s connect</a>
+                <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+            </nav>
+        </div>
 
         <header class="card" id="profile">
             <div class="hero">
@@ -1100,6 +1155,19 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             history.replaceState(null, '', location.pathname);
         });
+
+        // On phones the bar docks to the bottom of the screen as soon as scrolling starts
+        const mobile = window.matchMedia('(max-width: 680px)');
+        function updateDock() {
+            const docked = mobile.matches && window.scrollY > 10;
+            if (docked !== nav.classList.contains('docked')) {
+                setMenu(false);
+                nav.classList.toggle('docked', docked);
+            }
+        }
+        window.addEventListener('scroll', updateDock, { passive: true });
+        mobile.addEventListener('change', updateDock);
+        updateDock();
 
         // Mobile burger menu: toggle on tap, close after choosing a section or tapping outside
         burger.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
