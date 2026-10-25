@@ -435,6 +435,17 @@
             transition: background 0.15s ease, color 0.15s ease;
         }
 
+        .nav a.home {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav a.home svg {
+            width: 16px;
+            height: 16px;
+        }
+
         .nav a:hover,
         .nav a.active {
             background: var(--accent-soft);
@@ -679,12 +690,13 @@
     <div class="page">
 
         <nav class="nav" aria-label="Sections">
+            <a href="#top" class="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11l9-8 9 8M5 9.5V21h5v-6h4v6h5V9.5"/></svg>Home</a>
             <a href="#experience">Experience</a>
             <a href="#education">Education</a>
             <a href="#certifications">Certifications</a>
             <a href="#skills">Skills</a>
             <a href="#languages">Languages</a>
-            <a href="#contact" class="cta">Contact</a>
+            <a href="#contact" class="cta">Let&rsquo;s connect</a>
         </nav>
 
         <header class="card" id="profile">
@@ -996,6 +1008,13 @@
     </div>
 
     <script>
+        // Home button scrolls back to the top of the page
+        document.querySelector('.nav a.home').addEventListener('click', (event) => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.replaceState(null, '', location.pathname);
+        });
+
         // Highlight the nav button of the section in view
         const navLinks = document.querySelectorAll('.nav a');
         const observer = new IntersectionObserver((entries) => {
